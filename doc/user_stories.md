@@ -10,6 +10,30 @@ Acceptance Criteria:
 
 ***
 
+<pre>As a board game collector,
+I want to be able to remove games in my collection when I get rid of them
+In order to ensure that my records don't contain games I no longer own.
+
+  Usage: ruby game.rb --remove "Shadows Over Camelot"
+
+Acceptance Criteria:
+* Marks game as no long in collection
+* Game is no longer listed as available to play</pre>
+
+***
+
+<pre>As a board game collector,
+I want to be able to correct errors in my collection if I enter something incorrectly
+In order to ensure my records are accurate.
+
+  Usage: ruby game.rb --update "Shadows Over Camelot"
+
+Acceptance Criteria:
+* Ask what items to update
+* Saves updates, replacing old information</pre>
+
+***
+
 <pre>As a gamer,
 I want to be able to get a list of games to play based on what I'm in the mood for
 In order to make it easier to pick the right game.
