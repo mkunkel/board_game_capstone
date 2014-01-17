@@ -1,4 +1,6 @@
+***
 # Board Game Tracker
+***
 
 ## Elevator Pitch
 I often have trouble remembering I've introduced a specific friend to a great game that I've found.
