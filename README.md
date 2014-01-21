@@ -7,7 +7,7 @@ I often have trouble remembering I've introduced a specific friend to a great ga
 With this app, I can keep track of who has played which game and what games we might want to try out.
 
 ## Project Requirements
-* Simple, interview style user input
+* Simple, command prompt user input
 * CRUD
 
 ## Feature List

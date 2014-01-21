@@ -2,10 +2,10 @@
 I want to be able to enter details about the games in my collection
 In order to keep track of my collection.
 
-  Usage: ./game --add "Shadows Over Camelot"
+  Usage: ./game --add "Shadows Over Camelot" 2 7 45 "Description of game"
 
 Acceptance Criteria:
-* Requests additional information
+* Rejects entries without all required information
 * Saves game with all provided details</pre>
 
 ***
@@ -26,15 +26,15 @@ Acceptance Criteria:
 I want to be able to correct errors in my collection if I enter something incorrectly
 In order to ensure my records are accurate.
 
-  Usage: ./game --update "Shadows Over Camelot"
+  Usage: ./game --update "Shadows Over Camelot" 2 7 45 "Description of game"
 
 Acceptance Criteria:
-* Ask what items to update
+* Rejects updates without all required information
 * Saves updates, replacing old information</pre>
 
 ***
 
-<pre>As a gamer,
+<!-- <pre>As a gamer,
 I want to be able to get a list of games to play based on what I'm in the mood for
 In order to make it easier to pick the right game.
 
@@ -43,7 +43,9 @@ In order to make it easier to pick the right game.
 Acceptance Criteria:
 * Displays a list of games that match the criteria provided</pre>
 
-***
+NOT PART OF MVP, TO BE INTRODUCED LATER
+
+*** -->
 
 <pre>As a gamer,
 I want to be able to get a list of games to play based on how many people are playing
@@ -60,10 +62,10 @@ Acceptance Criteria:
 I want to be able to enter information about each game I play with whom
 In order to keep track of which friends have played which games.
 
-  Usage: ./game --play "Pandemic"
+  Usage: ./game --play "Pandemic" "John Doe, Jane Doe"
 
 Acceptance Criteria:
-* Requests a list of friends who are playing
+* Rejects entries without all required information
 * Saves a gameplay to each friend playing</pre>
 
 ***
@@ -72,8 +74,8 @@ Acceptance Criteria:
 I want to be able to enter a list of friends who will be playing and get suggestions for new games
 So I can be sure to introduce those friends to great games they haven't played.
 
-  Usage: ./game --suggest
+  Usage: ./game --suggest "John Doe, Jane Doe"
 
 Acceptance Criteria:
-* Requests a list of friends who are playing
+* Rejects entries without all required information
 * Displays a list of games that none of those friends have played</pre>
