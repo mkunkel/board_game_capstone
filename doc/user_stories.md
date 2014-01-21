@@ -2,7 +2,7 @@
 I want to be able to enter details about the games in my collection
 In order to keep track of my collection.
 
-  Usage: ./game --add "Shadows Over Camelot" 2 7 45 "Description of game"
+  Usage: ./game add "Shadows Over Camelot" --min 2 --max 7 --time 45 --desc "Description of game"
 
 Acceptance Criteria:
 * Rejects entries without all required information
@@ -14,7 +14,7 @@ Acceptance Criteria:
 I want to be able to remove games in my collection when I get rid of them
 In order to ensure that my records don't contain games I no longer own.
 
-  Usage: ./game --remove "Shadows Over Camelot"
+  Usage: ./game remove "Shadows Over Camelot"
 
 Acceptance Criteria:
 * Marks game as no long in collection
@@ -26,7 +26,7 @@ Acceptance Criteria:
 I want to be able to correct errors in my collection if I enter something incorrectly
 In order to ensure my records are accurate.
 
-  Usage: ./game --update "Shadows Over Camelot" 2 7 45 "Description of game"
+  Usage: ./game update "Shadows Over Camelot" --min 2 --max 7 -- time45 --desc "Description of game"
 
 Acceptance Criteria:
 * Rejects updates without all required information
@@ -51,7 +51,7 @@ NOT PART OF MVP, TO BE INTRODUCED LATER
 I want to be able to get a list of games to play based on how many people are playing
 In order to make it easier to pick the right game.
 
-  Usage: ./game --list "3 players"
+  Usage: ./game list "3 players"
 
 Acceptance Criteria:
 * Displays a list of games that allow the specified number of players</pre>
@@ -62,7 +62,7 @@ Acceptance Criteria:
 I want to be able to enter information about each game I play with whom
 In order to keep track of which friends have played which games.
 
-  Usage: ./game --play "Pandemic" "John Doe, Jane Doe"
+  Usage: ./game play "Pandemic" --friends "John Doe, Jane Doe"
 
 Acceptance Criteria:
 * Rejects entries without all required information
@@ -74,7 +74,7 @@ Acceptance Criteria:
 I want to be able to enter a list of friends who will be playing and get suggestions for new games
 So I can be sure to introduce those friends to great games they haven't played.
 
-  Usage: ./game --suggest "John Doe, Jane Doe"
+  Usage: ./game suggest --friends "John Doe, Jane Doe"
 
 Acceptance Criteria:
 * Rejects entries without all required information
