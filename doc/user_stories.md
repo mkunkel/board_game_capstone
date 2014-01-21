@@ -26,7 +26,7 @@ Acceptance Criteria:
 I want to be able to correct errors in my collection if I enter something incorrectly
 In order to ensure my records are accurate.
 
-  Usage: ./game update "Shadows Over Camelot" --min 2 --max 7 -- time45 --desc "Description of game"
+  Usage: ./game update "Shadows Over Camelot" --min 2 --max 7 --time 45 --desc "Description of game"
 
 Acceptance Criteria:
 * Rejects updates without all required information
