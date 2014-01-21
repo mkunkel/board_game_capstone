@@ -2,7 +2,7 @@
 I want to be able to enter details about the games in my collection
 In order to keep track of my collection.
 
-  Usage: ruby game.rb --add "Shadows Over Camelot"
+  Usage: ./game --add "Shadows Over Camelot"
 
 Acceptance Criteria:
 * Requests additional information
@@ -14,7 +14,7 @@ Acceptance Criteria:
 I want to be able to remove games in my collection when I get rid of them
 In order to ensure that my records don't contain games I no longer own.
 
-  Usage: ruby game.rb --remove "Shadows Over Camelot"
+  Usage: ./game --remove "Shadows Over Camelot"
 
 Acceptance Criteria:
 * Marks game as no long in collection
@@ -26,7 +26,7 @@ Acceptance Criteria:
 I want to be able to correct errors in my collection if I enter something incorrectly
 In order to ensure my records are accurate.
 
-  Usage: ruby game.rb --update "Shadows Over Camelot"
+  Usage: ./game --update "Shadows Over Camelot"
 
 Acceptance Criteria:
 * Ask what items to update
@@ -38,7 +38,7 @@ Acceptance Criteria:
 I want to be able to get a list of games to play based on what I'm in the mood for
 In order to make it easier to pick the right game.
 
-  Usage: ruby games.rb --list "Cooperative"
+  Usage: ./game --list "Cooperative"
 
 Acceptance Criteria:
 * Displays a list of games that match the criteria provided</pre>
@@ -49,7 +49,7 @@ Acceptance Criteria:
 I want to be able to get a list of games to play based on how many people are playing
 In order to make it easier to pick the right game.
 
-  Usage: ruby games.rb --list "3 players"
+  Usage: ./game --list "3 players"
 
 Acceptance Criteria:
 * Displays a list of games that allow the specified number of players</pre>
@@ -60,7 +60,7 @@ Acceptance Criteria:
 I want to be able to enter information about each game I play with whom
 In order to keep track of which friends have played which games.
 
-  Usage: ruby games.rb --play "Pandemic"
+  Usage: ./game --play "Pandemic"
 
 Acceptance Criteria:
 * Requests a list of friends who are playing
@@ -72,7 +72,7 @@ Acceptance Criteria:
 I want to be able to enter a list of friends who will be playing and get suggestions for new games
 So I can be sure to introduce those friends to great games they haven't played.
 
-  Usage: ruby games.rb --suggest
+  Usage: ./game --suggest
 
 Acceptance Criteria:
 * Requests a list of friends who are playing
