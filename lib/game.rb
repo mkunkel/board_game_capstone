@@ -1,8 +1,13 @@
-require_relative 'validate'
+require_relative 'options'
 
 class Game
   def self.add options
-    Validate.has_required_options(options, "Add game", "min", "max", "time")
+    missing = Options.has_required_options(options, "min", "max", "time")
+    unless missing.empty?
+      puts "Add game requires additional options. You left out the following:"
+      missing.each{|option| puts "--#{option.to_s}"}
+      return false
+    end
     print "Added #{options[:name]}. #{options[:min]}-#{options[:max]} players, "
     puts "#{options[:time]} minutes"
     puts options[:desc] if options.include?(:desc)
