@@ -14,4 +14,17 @@ class TestEnteringGames < MiniTest::Unit::TestCase
     expected = "Must provide a name"
     assert_command_output expected, command
   end
+
+  def test_02_game_requires_options
+    command = "./game add 'Shadows Over Camelot'"
+    expected = "Add game requires additional options. You left out the following:\n--min\n--max\n--time"
+    assert_command_output expected, command
+  end
+
+  def test_03_game_description_not_required
+    command = "./game add 'Shadows Over Camelot' --min 2 --max 7 --time 45"
+    expected = "Added Shadows Over Camelot. 2-7 players, 45 minutes"
+    assert_command_output expected, command
+  end
+
 end
