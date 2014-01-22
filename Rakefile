@@ -7,7 +7,10 @@ Rake::TestTask.new() do |t|
 end
 
 desc "Run tests"
-task :default => :test
+# task :default => :test
+task :default do
+  puts "--------------Use RSPEC instead!--------------"
+end
 
 task :bootstrap_database do
   require 'sqlite3'
