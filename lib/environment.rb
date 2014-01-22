@@ -5,7 +5,7 @@ class Environment
 
   def self.create_tables(database_connection)
     database_connection.execute("CREATE TABLE games (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                     name varchar(100),
+                                                     name varchar(100) UNIQUE,
                                                      min_players integer,
                                                      max_players integer,
                                                      description text,
@@ -21,7 +21,7 @@ class Environment
                                                              friends_id integer)")
 
     database_connection.execute("CREATE TABLE friends (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                       name varchar(60))")
+                                                       name varchar(60) UNIQUE)")
   end
 
   def self.bootstrap_database
