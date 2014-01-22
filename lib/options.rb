@@ -3,7 +3,7 @@ require 'optparse'
 class Options
 
   def self.parse
-    options = {}
+    options = { environment: "production" }
 
     OptionParser.new do |opts|
       opts.banner = "Usage: game [command] [options]"
@@ -27,6 +27,10 @@ class Options
       opts.on("--friends [FRIENDS]", "A list of friends") do |friends|
         friends = friends.split(',')
         options[:friends] = friends.map{|name| name.strip}
+      end
+
+      opts.on("--environment [ENV]", "The software environment") do |env|
+        options[:environment] = env
       end
     end.parse!
     options

@@ -1,4 +1,5 @@
 require_relative 'options'
+require_relative 'environment'
 
 class Game
   def self.add options
@@ -8,6 +9,12 @@ class Game
       missing.each{|option| puts "--#{option.to_s}"}
       return false
     end
+    require "sqlite3"
+    db = Environment.database_connection(options[:environment])
+    statement = "insert into games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) values('#{options[:name]}', #{options[:min]},
+                           #{options[:max]}, #{options[:desc]}, #{options[:time]}, true)"
     print "Added #{options[:name]}. #{options[:min]}-#{options[:max]} players, "
     puts "#{options[:time]} minutes"
     puts options[:desc] if options.include?(:desc)
