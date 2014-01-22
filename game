@@ -14,10 +14,10 @@ when "add", "remove", "update"
   name = ARGV[1]
   if name.nil? or name.empty?
     puts "Must provide a name"
-    exit
+  else
+    options[:name] = name
+    Game.send(command.to_sym, options)
   end
-  options[:name] = name
-  Game.send(command.to_sym, options)
 else
   puts "unknown"
 end
