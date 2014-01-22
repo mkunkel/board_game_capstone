@@ -27,4 +27,9 @@ class TestEnteringGames < MiniTest::Unit::TestCase
     assert_command_output expected, command
   end
 
+  def test_04_game_requires_a_time_option
+    command = "./game add 'Shadows Over Camelot' --min 2 --max 7"
+    expected = "Add game requires additional options. You left out the following:\n--time"
+    assert_command_output expected, command
+  end
 end
