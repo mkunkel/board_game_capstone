@@ -29,6 +29,10 @@ class Environment
     create_tables(database)
   end
 
+  def self.send_query query
+    @connection.execute(query)
+  end
+
   def self.test_prepare
     @connection = nil
     db_file = "db/boardgametracker_test.sqlite3"

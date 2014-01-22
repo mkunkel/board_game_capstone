@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'pry'
+require_relative '../../lib/environment'
 
 describe "Entering games" do
   before(:each) do
-    test_prepare
+    Environment.test_prepare
   end
 
   it "Should print valid games" do
@@ -37,7 +37,9 @@ describe "Entering games" do
   end
 
   it "Should save a valid game" do
-    pending
-    get_output(command).should == expected_output
+    `./game add 'Shadows Over Camelot' --min 2 --max 7 --time 45 --desc 'Description of game' --environment test`
+    result = Environment.send_query("SELECT name, min_players, max_players, playing_time, description FROM games")
+    expected_output = [["Shadows Over Camelot", 2, 7, 45, "Description of game"]]
+    result.should == expected_output
   end
 end

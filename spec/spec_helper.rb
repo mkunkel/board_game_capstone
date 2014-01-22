@@ -22,6 +22,6 @@ def get_output command
   `#{command}`.strip
 end
 
-def test_prepare
-  Environment.test_prepare
-end
+# def test_prepare
+#   Environment.test_prepare
+# end

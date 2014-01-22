@@ -11,10 +11,11 @@ class Game
     end
     require "sqlite3"
     db = Environment.database_connection(options[:environment])
-    statement = "insert into games(name, min_players, max_players,
+    statement = "INSERT INTO games(name, min_players, max_players,
                  description, playing_time, in_collection
-                 ) values('#{options[:name]}', #{options[:min]},
-                           #{options[:max]}, #{options[:desc]}, #{options[:time]}, true)"
+                 ) VALUES('#{options[:name]}', '#{options[:min]}',
+                          '#{options[:max]}', '#{options[:desc]}', '#{options[:time]}', 'true')"
+    db.execute(statement)
     print "Added #{options[:name]}. #{options[:min]}-#{options[:max]} players, "
     puts "#{options[:time]} minutes"
     puts options[:desc] if options.include?(:desc)
