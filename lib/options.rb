@@ -16,21 +16,29 @@ class Options
         options[:max] = max
       end
 
-      opts.on("--time [TIME]", "The playing time") do |time|
+      opts.on("-t", "--time [TIME]", "The playing time") do |time|
         options[:time] = time
       end
 
-      opts.on("--desc [DESC]", "The description") do |desc|
+      opts.on("-d", "--desc [DESC]", "The description") do |desc|
         options[:desc] = desc
       end
 
-      opts.on("--friends [FRIENDS]", "A list of friends") do |friends|
+      opts.on("-f", "--friends [FRIENDS]", "A list of friends") do |friends|
         friends = friends.split(',')
         options[:friends] = friends.map{|name| name.strip}
       end
 
       opts.on("--environment [ENV]", "The software environment") do |env|
         options[:environment] = env
+      end
+
+      opts.on("-h", "--help", "Display this help") do
+        hidden_switch = "--environment"
+        #Typecast opts to a string, split into an array of lines, delete the line
+        #if it contains the argument, and then rejoins them into a string
+        puts opts.to_s.split("\n").delete_if { |line| line.include?(hidden_switch)}.join("\n")
+        exit
       end
     end.parse!
     options
