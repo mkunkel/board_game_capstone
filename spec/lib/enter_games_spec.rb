@@ -18,15 +18,9 @@ describe "Entering games" do
     get_output(command).should == expected_output
   end
 
-  it "Should require require options" do
+  it "Should require options" do
     command = "./game add 'Shadows Over Camelot' --environment test"
     expected_output = "Add game requires additional options. You left out the following:\n--min\n--max\n--time"
-    get_output(command).should == expected_output
-  end
-
-  it "Should require require options" do
-    command = "./game add 'Shadows Over Camelot' --min 2 --max 7 --time 45 --environment test"
-    expected_output = "Added Shadows Over Camelot. 2-7 players, 45 minutes"
     get_output(command).should == expected_output
   end
 
