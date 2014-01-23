@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require_relative 'lib/options'
 require_relative 'lib/environment'
-require_relative 'lib/game'
+require_relative 'models/game'
 
 command = ARGV[0]
 
@@ -17,7 +17,9 @@ when "add", "remove", "update"
     puts "Must provide a name"
   else
     options[:name] = name
-    Game.send(command.to_sym, options)
+    command = command == "add" ? "create" : command
+    result = Game.send(command.to_sym, options)
+    puts result
   end
 else
   puts "unknown"
