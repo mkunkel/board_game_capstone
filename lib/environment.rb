@@ -30,14 +30,16 @@ class Environment
   end
 
   def self.send_query query
-    @connection.execute(query)
+    database = database_connection("test")
+    database.execute(query)
   end
 
   def self.test_prepare
-    @connection = nil
-    db_file = "db/boardgametracker_test.sqlite3"
-    File.delete(db_file) if File.exists?(db_file)
     database = database_connection("test")
-    create_tables(database)
+    database.execute("DELETE FROM games")
+    # @connection = nil
+    # db_file = "db/boardgametracker_test.sqlite3"
+    # File.delete(db_file) if File.exists?(db_file)
+    # create_tables(database)
   end
 end
