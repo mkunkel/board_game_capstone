@@ -4,23 +4,14 @@ require_relative 'lib/environment'
 require_relative 'models/game'
 
 command = ARGV[0]
-
-
-# name = ARGV[1]
 options = Options.parse
 
-case command.downcase
-when "add", "remove", "update"
-  # User is trying to add, remove or update a game
-  name = ARGV[1]
-  if name.nil? or name.empty?
-    puts "Must provide a name"
-  else
-    options[:name] = name
-    command = command == "add" ? "create" : command
-    result = Game.send(command.to_sym, options)
-    puts result
-  end
-else
-  puts "unknown"
+name = ARGV[1]
+case command
+when "add"
+  puts "Successfully added game." if Game.create(options.merge(name: name))
+when "remove"
+  puts "Successfully removed game." if Game.find_by_name(name).remove_from_collection
+when "update"
+  puts "Successfully update game." if Game.find_by_name(name).update_attributes(options)
 end

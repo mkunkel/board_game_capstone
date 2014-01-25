@@ -9,19 +9,23 @@ class Options
       opts.banner = "Usage: game [command] [options]"
 
       opts.on("--min [MIN]", "The minimum number of players") do |min|
-        options[:min] = min
+        options[:min_players] = min
+      end
+
+      opts.on("--name [name]", "The name of the game.") do |name|
+        options[:name] = name
       end
 
       opts.on("--max [MAX]", "The maximum number of players") do |max|
-        options[:max] = max
+        options[:max_players] = max
       end
 
       opts.on("-t", "--time [TIME]", "The playing time") do |time|
-        options[:time] = time
+        options[:playing_time] = time
       end
 
       opts.on("-d", "--desc [DESC]", "The description") do |desc|
-        options[:desc] = desc
+        options[:description] = desc
       end
 
       opts.on("-f", "--friends [FRIENDS]", "A list of friends") do |friends|
