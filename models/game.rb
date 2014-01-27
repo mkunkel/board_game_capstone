@@ -4,7 +4,7 @@ require_relative '../lib/hash_patch'
 require_relative '../lib/crud_functions'
 
 class Game
-  attr_accessor :id, :name, :min_players, :max_players, :description, :in_collection, :playing_time, :environment
+  attr_accessor :id, :name, :min_players, :max_players, :description, :in_collection, :playing_time, :environment, :errors
   extend CrudFunctions
 
   def initialize attributes = {}
@@ -18,7 +18,7 @@ class Game
     game if self.save
   end
 
-  def self.save
+  def save
     if self.valid?
       if id
         update_record
@@ -53,8 +53,18 @@ class Game
     output
   end
 
+  def valid?
+    @errors = []
+    @errors << 'Name must be atleast one character' unless name.to_s.length > 0
+    @errors << 'Minimum players must be greater than zero' unless min_players.to_i > 0
+    @errors << 'Max players must be greater than zero' unless max_players.to_i > 0
+    @errors << 'Playing time must be greater than zero' unless playing_time.to_i > 0
+    return false unless errors.empty?
+    true
+  end
+
   private
-  def self.update_record
+  def update_record
 
     db = Environment.database_connection(environment)
     db.results_as_hash = true
@@ -63,7 +73,7 @@ class Game
     self
   end
 
-  def self.create_record
+  def create_record
     db = Environment.database_connection(environment)
     db.results_as_hash = true
     statement = "INSERT INTO games(name, min_players, max_players,
@@ -76,8 +86,5 @@ class Game
     self
   end
 
-  def self.valid?
-    true if (@name.to_s.length > 0) && (min_players.to_i > 0 ) && (max_players.to_i > 0) && ( playing_time.to_i > 0)
-  end
 
 end
