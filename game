@@ -8,6 +8,7 @@ command = ARGV[0]
 
 # name = ARGV[1]
 options = Options.parse
+Environment.environment= options[:environment] || "production"
 
 case command.downcase
 when "add"

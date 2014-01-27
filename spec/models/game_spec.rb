@@ -14,8 +14,8 @@ describe Game do
 
   it "Should save games to the database" do
     game = Game.new({:name => "Shadows Over Camelot", :min => 2, :max => 7, :time => 45, :desc => "Description of game", :environment => "test"})
-    count_before_save = game.count
+    # count_before_save = Game.count
     game.save
-    game.count.should > count_before_save
+    Game.count.should == 1
   end
 end

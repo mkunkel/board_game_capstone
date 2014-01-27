@@ -1,0 +1,53 @@
+ Logfile created on 2014-01-27 16:59:37 -0600 by logger.rb/41954
+I, [2014-01-27T16:59:37.108905 #29732]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', true)
+I, [2014-01-27T17:25:19.975001 #4395]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:21.718594 #4395]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:22.305446 #4395]  INFO -- : Executing: SELECT id FROM games
+I, [2014-01-27T17:25:22.875069 #4395]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:25.789199 #4395]  INFO -- : Executing: UPDATE games SET in_collection='false' WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:25:26.551379 #4395]  INFO -- : Executing: SELECT in_collection FROM games WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:25:27.290532 #4395]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:32.925786 #4395]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:35.265006 #4395]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:36.328524 #4395]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:38.050013 #4395]  INFO -- : Executing: SELECT name, min_players, max_players, playing_time, description FROM games
+I, [2014-01-27T17:25:38.612572 #4395]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:42.275685 #4617]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:42.889860 #4617]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:43.403548 #4617]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:43.911125 #4617]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:55.196143 #4617]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:25:57.523244 #4617]  INFO -- : Executing: SELECT name, min_players, max_players, playing_time, description FROM games
+I, [2014-01-27T17:25:58.319091 #4617]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:00.587118 #4617]  INFO -- : Executing: UPDATE games SET in_collection='false' WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:26:01.270719 #4617]  INFO -- : Executing: SELECT in_collection FROM games WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:26:02.232814 #4617]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:03.533004 #4617]  INFO -- : Executing: SELECT id FROM games
+I, [2014-01-27T17:26:04.322693 #4617]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:34.007334 #4953]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:34.462747 #4953]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:34.944568 #4953]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:35.399339 #4953]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:35.867778 #4953]  INFO -- : Executing: SELECT name, min_players, max_players, playing_time, description FROM games
+I, [2014-01-27T17:26:35.875254 #4953]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:36.318147 #4953]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:37.031045 #4953]  INFO -- : Executing: UPDATE games SET in_collection='false' WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:26:37.031485 #4953]  INFO -- : Executing: SELECT in_collection FROM games WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:26:37.038987 #4953]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:37.211171 #4953]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:26:37.383941 #4953]  INFO -- : Executing: SELECT id FROM games
+I, [2014-01-27T17:27:36.675764 #5185]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:27:39.603200 #5185]  INFO -- : Executing: SELECT name, min_players, max_players, playing_time, description FROM games
+I, [2014-01-27T17:27:39.616750 #5185]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:27:47.168717 #5185]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:27:47.961043 #5185]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:27:50.372889 #5185]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:27:51.292756 #5185]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:27:52.019972 #5185]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:27:52.884566 #5185]  INFO -- : Executing: SELECT id FROM games
+I, [2014-01-27T17:27:52.893408 #5185]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:27:54.022830 #5185]  INFO -- : Executing: UPDATE games SET in_collection='false' WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:27:54.023174 #5185]  INFO -- : Executing: SELECT in_collection FROM games WHERE name='Shadows Over Camelot'
