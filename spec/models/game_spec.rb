@@ -7,9 +7,15 @@ describe Game do
     Environment.test_prepare
   end
 
-  it "Should save and return games" do
-    Game.create({:name => "Shadows Over Camelot", :min => 2, :max => 7, :time => 45, :desc => "Description of game", :environment => "test"})
-    Game.read("Shadows Over Camelot", "test").should == "Shadows Over Camelot. 2-7 players, 45 minutes\nDescription of game"
+  it "Should create a game" do
+    game = Game.new({:name => "Shadows Over Camelot", :min => 2, :max => 7, :time => 45, :desc => "Description of game", :environment => "test"})
+    game.class.should == Game
   end
 
+  it "Should save games to the database" do
+    game = Game.new({:name => "Shadows Over Camelot", :min => 2, :max => 7, :time => 45, :desc => "Description of game", :environment => "test"})
+    count_before_save = game.count
+    game.save
+    game.count.should > count_before_save
+  end
 end

@@ -22,7 +22,7 @@ end
 task :test_prepare do
   require 'sqlite3'
   require_relative 'lib/environment'
-  File.delete("db/grocerytracker_test.sqlite3")
+  File.delete("db/boardgametracker_test.sqlite3")
   database = Environment.database_connection("test")
   create_tables(database)
 end

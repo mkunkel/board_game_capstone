@@ -10,17 +10,10 @@ command = ARGV[0]
 options = Options.parse
 
 case command.downcase
-when "add", "remove", "update"
-  # User is trying to add, remove or update a game
+when "add"
+  # User is trying to add a game
   name = ARGV[1]
-  if name.nil? or name.empty?
-    puts "Must provide a name"
-  else
-    options[:name] = name
-    command = command == "add" ? "create" : command
-    result = Game.send(command.to_sym, options)
-    puts result
-  end
+  puts "Successfully added game" if Game.create(options.merge(name: name))
 else
   puts "unknown"
 end
