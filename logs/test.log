@@ -46,3 +46,51 @@ I, [2014-01-27T17:27:54.014427 #5317]  INFO -- : Executing: INSERT INTO games(na
                  description, playing_time, in_collection
                  ) VALUES('Shadows Over Camelot', '2',
                           '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:32:38.917544 #6382]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:32:38.917641 #6382]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:32:39.439245 #6389]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:32:39.439344 #6389]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:32:40.132103 #6403]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:32:40.132200 #6403]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:34:02.082528 #6705]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:34:02.082623 #6705]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:34:02.490986 #6715]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:34:02.491085 #6715]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:34:04.179068 #6745]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')
+I, [2014-01-27T17:34:04.179154 #6745]  INFO -- : Executing: INSERT INTO games(name, min_players, max_players,
+                 description, playing_time, in_collection
+                 ) VALUES('Shadows Over Camelot', '2',
+                          '7', 'Description of game', '45', 'true')

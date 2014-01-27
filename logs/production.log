@@ -51,3 +51,27 @@ I, [2014-01-27T17:27:52.884566 #5185]  INFO -- : Executing: SELECT id FROM games
 I, [2014-01-27T17:27:52.893408 #5185]  INFO -- : Executing: DELETE FROM games
 I, [2014-01-27T17:27:54.022830 #5185]  INFO -- : Executing: UPDATE games SET in_collection='false' WHERE name='Shadows Over Camelot'
 I, [2014-01-27T17:27:54.023174 #5185]  INFO -- : Executing: SELECT in_collection FROM games WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:32:37.096922 #6333]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:32:37.578147 #6333]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:32:38.022569 #6333]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:32:38.529283 #6333]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:32:39.039635 #6333]  INFO -- : Executing: SELECT name, min_players, max_players, playing_time, description FROM games
+I, [2014-01-27T17:32:39.047244 #6333]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:32:39.455808 #6333]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:32:39.591990 #6333]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:32:39.718300 #6333]  INFO -- : Executing: SELECT id FROM games
+I, [2014-01-27T17:32:39.726124 #6333]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:32:40.141851 #6333]  INFO -- : Executing: UPDATE games SET in_collection='false' WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:32:40.142328 #6333]  INFO -- : Executing: SELECT in_collection FROM games WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:34:01.662770 #6682]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:34:02.090158 #6682]  INFO -- : Executing: UPDATE games SET in_collection='false' WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:34:02.090622 #6682]  INFO -- : Executing: SELECT in_collection FROM games WHERE name='Shadows Over Camelot'
+I, [2014-01-27T17:34:02.102827 #6682]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:34:02.499987 #6682]  INFO -- : Executing: SELECT name, min_players, max_players, playing_time, description FROM games
+I, [2014-01-27T17:34:02.505229 #6682]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:34:02.913042 #6682]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:34:03.329263 #6682]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:34:03.762968 #6682]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:34:04.195790 #6682]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:34:04.326267 #6682]  INFO -- : Executing: DELETE FROM games
+I, [2014-01-27T17:34:04.454612 #6682]  INFO -- : Executing: SELECT id FROM games
