@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 require_relative '../../lib/environment'
 require_relative '../../models/game'
 
@@ -21,6 +22,7 @@ describe Game do
     describe '#save' do
       it "Should save games to the database" do
         @game.save
+        binding.pry
         Game.count.should == 1
       end
     end
