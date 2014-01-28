@@ -18,6 +18,8 @@ RSpec.configure do |config|
   config.order = 'random'
 end
 
+Environment.environment = "test"
+
 def get_output command
   `#{command}`.strip
 end

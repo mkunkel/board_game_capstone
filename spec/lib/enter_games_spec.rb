@@ -14,19 +14,19 @@ describe "Entering games" do
 
   it "Should require a name" do
     command = "./game add --min 2 --max 7 --time 45 --desc 'Description of game' --environment test"
-    expected_output = "Must provide a name"
+    expected_output = "Name must be at least one character"
     get_output(command).should == expected_output
   end
 
   it "Should require options" do
     command = "./game add 'Shadows Over Camelot' --environment test"
-    expected_output = "Add game requires additional options. You left out the following:\n--min\n--max\n--time"
+    expected_output = "Minimum players must be greater than zero\nMax players must be greater than zero\nPlaying time must be greater than zero"
     get_output(command).should == expected_output
   end
 
   it "Should require require a time option" do
     command = "./game add 'Shadows Over Camelot' --min 2 --max 7 --environment test"
-    expected_output = "Add game requires additional options. You left out the following:\n--time"
+    expected_output = "Playing time must be greater than zero"
     get_output(command).should == expected_output
   end
 

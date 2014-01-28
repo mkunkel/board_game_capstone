@@ -1,5 +1,4 @@
 require 'sqlite3'
-require 'pry'
 
 class Database < SQLite3::Database
   def self.connection environment
@@ -28,7 +27,6 @@ class Database < SQLite3::Database
   end
 
   def execute(statement)
-    puts "\n\n\nSHOULD BE DELETING\n\n\n" if statement == "DELETE FROM games"
     Environment.logger.info("Executing: " + statement)
     super(statement)
   end
