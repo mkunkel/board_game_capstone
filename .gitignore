@@ -1,3 +1,3 @@
 db/*.sqlite3
 .rspec
-log/*.log
+logs/*.log
