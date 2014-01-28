@@ -10,10 +10,29 @@ describe Game do
 
   context 'class methods' do
     describe '.new' do
-      it "should initialize an instance of class Game" do
+      it "Should initialize an instance of class Game" do
         game = Game.new
         game.class.should be Game
       end
+    end
+
+    describe '.find_by_players' do
+      it "Should return Games" do
+        game = Game.find_by_players(3)
+        game[0].class.should be Game
+      end
+
+      it "Should return the correct number of games" do
+        game1 = Game.new({:name => "Shadows Over Camelot", :min_players => 2, :max_players => 7, :playing_time => 45, :description => "Description of game"})
+        game1.save
+        game2 = Game.new({:name => "Pandemic", :min_players => 2, :max_players => 4, :playing_time => 60, :description => "Description of game"})
+        game2.save
+        game3 = Game.new({:name => "Resistance", :min_players => 5, :max_players => 10, :playing_time => 30, :description => "Description of game"})
+        game3.save
+        games_for_3 = Game.find_by_players(3)
+        games_for_3.length.should be 2
+      end
+
     end
 
     describe ".update" do
