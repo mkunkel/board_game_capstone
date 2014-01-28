@@ -32,6 +32,7 @@ describe "Entering games" do
 
   it "Should save a valid game" do
     `./game add 'Shadows Over Camelot' --min 2 --max 7 --time 45 --desc 'Description of game' --environment test`
+    Environment.environment = "test"
     result = Environment.send_query("SELECT name, min_players, max_players, playing_time, description FROM games")
     expected_output = [["Shadows Over Camelot", 2, 7, 45, "Description of game"]]
     result.should == expected_output

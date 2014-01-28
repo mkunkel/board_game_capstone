@@ -1,4 +1,3 @@
-require 'pry'
 module CrudFunctions
   def all
     db = Environment.database_connection

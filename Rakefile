@@ -12,10 +12,17 @@ task :default do
   puts "--------------Use RSPEC instead!--------------"
 end
 
-task :bootstrap_database do
+task :bootstrap_production_database do
   require 'sqlite3'
-  require_relative 'lib/environment'
-  database = Environment.database_connection("production")
+  require_relative 'lib/database'
+  database = Database.connection "production"
+  create_tables(database)
+end
+
+task :bootstrap_test_database do
+  require 'sqlite3'
+  require_relative 'lib/database'
+  database = Database.connection "production"
   create_tables(database)
 end
 
@@ -29,7 +36,7 @@ end
 
 def create_tables(database_connection)
   database_connection.execute("CREATE TABLE games (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                   name varchar(100),
+                                                   name varchar(100) UNIQUE,
                                                    min_players integer,
                                                    max_players integer,
                                                    description text,

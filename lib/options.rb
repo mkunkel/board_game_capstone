@@ -3,7 +3,7 @@ require 'optparse'
 class Options
 
   def self.parse
-    options = { environment: "production" }
+    options = {}
 
     OptionParser.new do |opts|
       opts.banner = "Usage: game [command] [options]"

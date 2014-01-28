@@ -1,4 +1,3 @@
-require 'pry'
 require_relative '../lib/options'
 require_relative '../lib/environment'
 require_relative '../lib/hash_patch'
@@ -82,7 +81,7 @@ class Game
                  ) VALUES('#{name}', '#{min_players}',
                           '#{max_players}', '#{description}', '#{playing_time}', 'true')"
 
-    Environment.logger.info("Executing: " + statement)
+    Environment.logger.info("Executing CREATE: " + statement)
     db.execute(statement)
     self.id = db.last_insert_row_id
     self

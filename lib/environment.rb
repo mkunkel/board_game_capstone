@@ -3,27 +3,34 @@ require 'logger'
 
 class Environment
 
-  @@environment = "production"
+  @@environment ||= "test"
+  def self.environment
+    @@environment ||= "production"
+  end
+
   def self.environment= env
     @@environment = env
   end
 
   def self.database_connection
-    Database.connection(@@environment)
+    Database.connection(@@environment || "production")
   end
 
   def self.logger
-    @@logger ||= Logger.new("logs/#{@@environment}.log")
+
+    @@logger ||= Logger.new("logs/#{@@environment || 'production'}.log")
 
   end
 
   def self.send_query query
-    database = database_connection
+    @@environment = "test"
+    database = Environment.database_connection
     database.results_as_hash = false
     database.execute(query)
   end
 
   def self.test_prepare
+    @@environment = "test"
     database = Environment.database_connection
     database.execute("DELETE FROM games")
   end
