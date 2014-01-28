@@ -17,7 +17,7 @@ In order to ensure that my records don't contain games I no longer own.
   Usage: ./game remove "Shadows Over Camelot"
 
 Acceptance Criteria:
-* Marks game as no long in collection
+* Marks game as no longer in collection
 * Game is no longer listed as available to play</pre>
 
 ***
