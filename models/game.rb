@@ -12,20 +12,8 @@ class Game
     [:id, :name, :min_players, :max_players, :description, :in_collection, :playing_time].each do |attr|
       self.send("#{attr}=", attributes[attr])
     end
-    instance_variables.each do |ivar|
-      ivar = ivar.to_s.gsub(/@/, '')
-      name = "find_by_#{ivar}"
-      unless ivar == "errors"
-        self.class.send(:define_method, name) { |arg|
-          db = Environment.database_connection
-          db.results_as_hash = true
-          statement = "SELECT id, name, min_players, max_players, description, playing_time FROM games WHERE #{ivar}='#{arg}'"
-          result = db.execute(statement)
-          db.results_as_hash = false
-          result
-        }
-      end
-    end
+    self.extend(CrudFunctions)
+    self.create_methods
   end
 
   def self.create options = {}
