@@ -18,6 +18,14 @@ when "add"
   else
     puts g.errors
   end
+when "remove"
+  name = ARGV[1]
+  g = Game.remove(name)
+  if g.errors.nil? or g.errors.empty?
+    puts "#{name} has been removed from your collection"
+  else
+    puts g.errors
+  end
 else
   puts "unknown"
 end

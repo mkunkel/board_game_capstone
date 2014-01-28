@@ -4,10 +4,12 @@ require_relative '../lib/hash_patch'
 require_relative '../lib/crud_functions'
 
 class Game
-  attr_accessor :id, :name, :min_players, :max_players, :description, :in_collection, :playing_time, :errors
+  attr_accessor :name, :min_players, :max_players, :description, :in_collection, :playing_time, :errors
+  attr_reader :id
   extend CrudFunctions
 
   def initialize attributes = {}
+    # attributes = attributes.symbolize_keys
     [:id, :name, :min_players, :max_players, :description, :in_collection, :playing_time].each do |attr|
       self.send("#{attr}=", attributes[attr])
     end
@@ -37,19 +39,16 @@ class Game
     self.save
   end
 
+  def remove
+    self.update_attributes({:in_collection => 0})
+    self
+  end
 
+  def self.remove(name)
+    game = Game.new
+    game = Game.new(game.find_by_name(name))
+    game.remove
 
-  def self.output name
-    db = Environment.database_connection
-    db.results_as_hash = true
-    statement = "SELECT name, min_players, max_players, description, playing_time FROM games WHERE name='#{name}'"
-    result = db.execute(statement)
-    db.results_as_hash = false
-    result = result[0]
-    output = "#{result['name']}. #{result['min_players']}-#{result['max_players']} players, "
-    output << "#{result['playing_time']} minutes\n"
-    output << result["description"] unless result["description"].empty?
-    output
   end
 
   def valid?
@@ -63,7 +62,11 @@ class Game
   end
 
   private
-  def self.update_record
+  def id=(id)
+    @id = id
+  end
+
+  def update_record
 
     db = Environment.database_connection
     db.results_as_hash = true
@@ -79,11 +82,13 @@ class Game
     statement = "INSERT INTO games(name, min_players, max_players,
                  description, playing_time, in_collection
                  ) VALUES('#{name}', '#{min_players}',
-                          '#{max_players}', '#{description}', '#{playing_time}', 'true')"
+                          '#{max_players}', '#{description}', '#{playing_time}', 1)"
 
     Environment.logger.info("Executing CREATE: " + statement)
     db.execute(statement)
     self.id = db.last_insert_row_id
+    db.results_as_hash = false
+    self.in_collection = db.execute("SELECT in_collection FROM games WHERE id=#{self.id} ").first.first
     self
   end
 

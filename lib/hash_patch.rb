@@ -5,4 +5,8 @@ class Hash
     end
     self
   end
+
+  def remove_invalid
+    new_hash = self.keep_if { |key, value| !key.is_a?(Integer)}
+  end
 end
