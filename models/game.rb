@@ -51,17 +51,12 @@ class Game
     output
   end
 
-  def errors_output
-    puts @errors
-  end
-
   def valid?
     @errors = []
     @errors << 'Name must be at least one character' unless name.to_s.length > 0
     @errors << 'Minimum players must be greater than zero' unless min_players.to_i > 0
     @errors << 'Max players must be greater than zero' unless max_players.to_i > 0
     @errors << 'Playing time must be greater than zero' unless playing_time.to_i > 0
-    errors_output unless errors.empty?
     return false unless errors.empty?
     true
   end

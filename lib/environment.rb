@@ -18,13 +18,13 @@ class Environment
   end
 
   def self.send_query query
-    database = database_connection#("test")
+    database = database_connection
     database.results_as_hash = false
     database.execute(query)
   end
 
   def self.test_prepare
-    database = Environment.database_connection#("test")
+    database = Environment.database_connection
     database.execute("DELETE FROM games")
   end
 end

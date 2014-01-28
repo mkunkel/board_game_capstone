@@ -14,7 +14,12 @@ case command.downcase
 when "add"
   # User is trying to add a game
   name = ARGV[1]
-  puts "Added #{Game.output(name)}" if Game.create(options.merge(name: name))
+  g = Game.new(options.merge(name: name))
+  if g.save
+    puts "Added #{g.name}. #{g.min_players}-#{g.max_players} players, #{g.playing_time} minutes\n#{g.description}"
+  else
+    puts g.errors
+  end
 else
   puts "unknown"
 end
