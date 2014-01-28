@@ -29,6 +29,10 @@ class Options
         options[:friends] = friends.map{|name| name.strip}
       end
 
+      opts.on("-n", "--name [NAME]", "A list of friends") do |name|
+        options[:name] = name
+      end
+
       opts.on("--environment [ENV]", "The software environment") do |env|
         options[:environment] = env
       end

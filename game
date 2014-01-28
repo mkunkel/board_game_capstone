@@ -26,6 +26,14 @@ when "remove"
   else
     puts g.errors
   end
+when "update"
+  name = ARGV[1]
+  g = Game.update(name, options)
+  if g.errors.nil? or g.errors.empty?
+    puts "Updated #{g.name}. #{g.min_players}-#{g.max_players} players, #{g.playing_time} minutes\n#{g.description}"
+  else
+    puts g.errors
+  end
 else
   puts "unknown"
 end

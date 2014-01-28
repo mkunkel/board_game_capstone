@@ -34,7 +34,7 @@ class Game
 
   def update_attributes(attrs)
     attrs.keys.each do |attr|
-      self.send("#{attr}=", attrs[attr])
+      self.send("#{attr}=", attrs[attr]) unless attr == :environment
     end
     self.save
   end
@@ -48,6 +48,12 @@ class Game
     game = Game.new
     game = Game.new(game.find_by_name(name))
     game.remove
+  end
+
+  def self.update(name, attrs)
+    game = Game.new
+    game = Game.new(game.find_by_name(name))
+    game = game.update_attributes(attrs)
 
   end
 

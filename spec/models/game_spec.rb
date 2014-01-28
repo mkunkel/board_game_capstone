@@ -16,6 +16,20 @@ describe Game do
       end
     end
 
+    describe ".update" do
+      it "Should change a name" do
+        @game.save
+        game = Game.update("Shadows Over Camelot", {:name => 'Pandemic'})
+        game.name.should eq('Pandemic')
+      end
+
+      it "Should change multiple attributes" do
+        @game.save
+        game = Game.update("Shadows Over Camelot", {:name => 'Pandemic', :playing_time => 40})
+        attrs = [game.name, game.playing_time]
+        attrs.should be == ["Pandemic", 40]
+      end
+    end
   end
 
   context 'instance methods' do
