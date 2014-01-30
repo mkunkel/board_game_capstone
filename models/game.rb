@@ -9,7 +9,7 @@ class Game
   extend CrudFunctions
 
   def initialize attributes = {}
-    # attributes = attributes.symbolize_keys
+    attributes = attributes.symbolize_keys
     [:id, :name, :min_players, :max_players, :description, :in_collection, :playing_time].each do |attr|
       self.send("#{attr}=", attributes[attr])
     end
@@ -37,6 +37,16 @@ class Game
       self.send("#{attr}=", attrs[attr]) unless attr == :environment
     end
     self.save
+  end
+
+  def self.find_by_players(number_of_players)
+    # number_of_players = number_of_players.to_i
+    db = Environment.database_connection
+    db.results_as_hash = true
+    statement = "SELECT * FROM games WHERE min_players<=#{number_of_players} AND max_players>=#{number_of_players}"
+    Environment.logger.info("Executing: " + statement)
+    games = db.execute(statement)
+    games.map{ |game| game = Game.new(game)}
   end
 
   def remove

@@ -34,6 +34,18 @@ when "update"
   else
     puts g.errors
   end
+when "list"
+  number_of_players = ARGV[1].split(' ')[0].to_i
+  player_word = number_of_players > 1 ? "players" : "player"
+  games = Game.find_by_players(number_of_players)
+  if games.empty?
+    puts "You do not have any games for #{number_of_players} #{player_word}"
+  else
+    puts "Games for #{number_of_players} #{player_word}:"
+    games.each do |game|
+      puts game.name
+    end
+  end
 else
   puts "unknown"
 end

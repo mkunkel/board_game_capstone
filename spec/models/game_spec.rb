@@ -18,17 +18,17 @@ describe Game do
 
     describe '.find_by_players' do
       it "Should return Games" do
+        @game.save
+        `./game add 'Pandemic' --min 2 --max 4 --time 60 --desc 'Description of Pandemic' --environment test`
+        `./game add 'Resistance' --min 5 --max 10 --time 30 --desc 'Description of Resistance' --environment test`
         game = Game.find_by_players(3)
         game[0].class.should be Game
       end
 
       it "Should return the correct number of games" do
-        game1 = Game.new({:name => "Shadows Over Camelot", :min_players => 2, :max_players => 7, :playing_time => 45, :description => "Description of game"})
-        game1.save
-        game2 = Game.new({:name => "Pandemic", :min_players => 2, :max_players => 4, :playing_time => 60, :description => "Description of game"})
-        game2.save
-        game3 = Game.new({:name => "Resistance", :min_players => 5, :max_players => 10, :playing_time => 30, :description => "Description of game"})
-        game3.save
+        @game.save
+        `./game add 'Pandemic' --min 2 --max 4 --time 60 --desc 'Description of Pandemic' --environment test`
+        `./game add 'Resistance' --min 5 --max 10 --time 30 --desc 'Description of Resistance' --environment test`
         games_for_3 = Game.find_by_players(3)
         games_for_3.length.should be 2
       end
