@@ -9,6 +9,8 @@ class Friend
 
   def initialize name = nil
     @name = name.strip.capitalize_sentence if name
+    self.extend CrudFunctions
+    self.create_methods
     self
   end
 

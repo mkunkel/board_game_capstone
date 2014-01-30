@@ -15,10 +15,8 @@ module CrudFunctions
         self.class.send(:define_method, name) { |arg|
           db = Environment.database_connection
           db.results_as_hash = true
-          statement = "SELECT id, name, min_players, max_players, description, playing_time, in_collection FROM games WHERE #{ivar}='#{arg}'"
+          statement = "SELECT * FROM games WHERE #{ivar}='#{arg}'"
           result = db.execute(statement)[0].remove_invalid
-
-          db.results_as_hash = false
           result.symbolize_keys
         }
       end
