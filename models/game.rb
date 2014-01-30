@@ -4,8 +4,8 @@ require_relative '../lib/hash_patch'
 require_relative '../lib/crud_functions'
 
 class Game
-  attr_accessor :name, :min_players, :max_players, :description, :in_collection, :playing_time, :errors
-  attr_reader :id
+  attr_accessor :name, :min_players, :max_players, :description, :in_collection, :playing_time
+  attr_reader :id, :errors
   extend CrudFunctions
 
   def initialize attributes = {}
