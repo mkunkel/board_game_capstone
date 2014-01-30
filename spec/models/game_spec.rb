@@ -76,12 +76,12 @@ describe Game do
 
     describe 'valid?' do
       it "should return true if game has required attributes" do
-        @game.valid?.should be true
+        @game.should be_valid
       end
 
       it "should return false if game doesn't have required attributes" do
         g = Game.new
-        g.valid?.should be false
+        g.should_not be_valid
       end
 
       it "should populate errors on the instance if invalid" do
