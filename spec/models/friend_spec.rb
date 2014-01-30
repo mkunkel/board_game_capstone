@@ -5,21 +5,25 @@ require_relative '../../models/friend'
 describe Friend do
   before(:each) do
     Environment.test_prepare
-    @friend = Friend.new({:name => "John Doe"})
+    @friend = Friend.new("John Doe")
   end
 
   context 'class methods' do
     describe '.new' do
       it "Should initialize an instance of class Friend" do
-        friend = Friend.new
-        friend.class.should be
+        @friend.class.should be Friend
+      end
+
+      it "Should normalize names by capitalizing each part of the name" do
+        f = Friend.new("john doe")
+        f.name.should eq("John Doe")
       end
     end
   end
 
   context 'instance methods' do
     describe '#save' do
-      it "Should save friendss to the database" do
+      it "Should save friends to the database" do
         @friend.save
         Friend.count.should be 1
       end
@@ -31,7 +35,7 @@ describe Friend do
       end
 
       it "should return false if friend doesn't have required attributes" do
-        f = friend.new
+        f = Friend.new
         f.should_not be_valid
       end
 
