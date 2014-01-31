@@ -11,7 +11,7 @@ describe Play do
   context 'class methods' do
     describe '.new' do
       it "Should initialize an instance of class Play" do
-        @Play.class.should be Play
+        @play.class.should be Play
       end
     end
   end
@@ -19,6 +19,7 @@ describe Play do
   context 'instance methods' do
     describe '#save' do
       it "Should save plays to the database" do
+        @play.game_id = 3
         @play.save
         Play.count.should be 1
       end
@@ -26,7 +27,8 @@ describe Play do
 
     describe 'valid?' do
       it "should return true if Play has required attributes" do
-        @friend.should be_valid
+        @play.game_id = 3
+        @play.should be_valid
       end
 
       it "should return false if friend doesn't have required attributes" do

@@ -34,5 +34,6 @@ class Environment
     database = Environment.database_connection
     database.execute("DELETE FROM games")
     database.execute("DELETE FROM friends")
+    database.execute("DELETE FROM plays")
   end
 end
