@@ -15,9 +15,14 @@ module CrudFunctions
         self.class.send(:define_method, name) { |arg|
           db = Environment.database_connection
           db.results_as_hash = true
-          statement = "SELECT * FROM games WHERE #{ivar}='#{arg}'"
-          result = db.execute(statement)[0].remove_invalid
-          result.symbolize_keys
+          statement = "SELECT * FROM #{self.class.to_s.downcase}s WHERE #{ivar}='#{arg}'"
+          result = db.execute(statement)[0]
+          unless result.nil?
+            result = result.remove_invalid
+            result.symbolize_keys
+          else
+            return nil
+          end
         }
       end
     end

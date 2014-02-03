@@ -7,8 +7,10 @@ class Friend
   attr_reader :id, :errors
   extend CrudFunctions
 
-  def initialize name = nil
-    @name = name.strip.capitalize_sentence if name
+  def initialize attrs = {}
+    attrs = {} if attrs.nil?
+    @name = attrs[:name].strip.capitalize_sentence if attrs[:name]
+    @id = attrs[:id] if attrs[:id]
     self.extend CrudFunctions
     self.create_methods
     self
@@ -24,7 +26,13 @@ class Friend
   def save
     if valid?
       if id.nil?
-        create_record
+        friend = Friend.new(self.find_by_name(@name))
+        if friend.id
+          self.id = friend.id
+          self
+        else
+          create_record
+        end
       end
     end
   end

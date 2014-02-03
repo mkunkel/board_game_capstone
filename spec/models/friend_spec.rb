@@ -5,7 +5,7 @@ require_relative '../../models/friend'
 describe Friend do
   before(:each) do
     Environment.test_prepare
-    @friend = Friend.new("John Doe")
+    @friend = Friend.new({name: "John Doe"})
   end
 
   context 'class methods' do
@@ -15,7 +15,7 @@ describe Friend do
       end
 
       it "Should normalize names by capitalizing each part of the name" do
-        f = Friend.new("john doe")
+        f = Friend.new({name: "john doe"})
         f.name.should eq("John Doe")
       end
     end
@@ -26,6 +26,13 @@ describe Friend do
       it "Should save friends to the database" do
         @friend.save
         Friend.count.should be 1
+      end
+
+      it "Should not save duplicate friends" do
+        @friend.save
+        new_friend = Friend.new({name: "John Doe"})
+        new_friend.save
+        @friend.id.should be new_friend.id
       end
     end
 
