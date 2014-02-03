@@ -15,25 +15,25 @@ describe "Joining plays with friends" do
   context "With valid input" do
     describe "Adding plays" do
       it "Should accept a play with a single friend" do
-        command = "./game play 'Shadows Over Camelot' 'John Doe' --environment test"
+        command = "./game play 'Shadows Over Camelot' --friends 'John Doe' --environment test"
         expected_output = "You played Shadows Over Camelot with John Doe"
         get_output(command).should == expected_output
       end
 
       it "Should accept a play with a two friends" do
-        command = "./game play 'Shadows Over Camelot' 'John Doe, Jane Doe' --environment test"
+        command = "./game play 'Shadows Over Camelot' --friends 'John Doe, Jane Doe' --environment test"
         expected_output = "You played Shadows Over Camelot with John Doe and Jane Doe"
         get_output(command).should == expected_output
       end
 
       it "Should accept a play with a more than two friends" do
-        command = "./game play 'Shadows Over Camelot' 'John Doe, Jane Doe, Shigeru Miyamoto' --environment test"
+        command = "./game play 'Shadows Over Camelot' --friends 'John Doe, Jane Doe, Shigeru Miyamoto' --environment test"
         expected_output = "You played Shadows Over Camelot with John Doe, Jane Doe and Shigeru Miyamoto"
         get_output(command).should == expected_output
       end
 
       it "Should save a record for each friend in a single play of a game" do
-        `./game play 'Shadows Over Camelot' 'John Doe, Jane Doe, Shigeru Miyamoto' --environment test`
+        `./game play 'Shadows Over Camelot' --friends 'John Doe, Jane Doe, Shigeru Miyamoto' --environment test`
         friends = @db.execute("SELECT friends.name FROM friends
                                INNER JOIN plays_friends ON friends.id = plays_friends.friends_id
                                INNER JOIN plays ON plays_friends.plays_id = plays.id
@@ -53,13 +53,13 @@ describe "Joining plays with friends" do
       end
 
       it "Should not accept a game with no game" do
-        command = "./game play 'John Doe' --environment test"
+        command = "./game play --friends 'John Doe' --environment test"
         expected_output = "You must provide the name of a game and at least one friend"
         get_output(command).should == expected_output
       end
 
       it "Should return an error if game not in database" do
-        command = "./game play 'Random Game Name' 'John Doe' --environment test"
+        command = "./game play 'Random Game Name' --friends 'John Doe' --environment test"
         expected_output = "Game not recognized"
         get_output(command).should == expected_output
       end

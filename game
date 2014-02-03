@@ -50,12 +50,12 @@ when "list"
     end
   end
 when "play"
-  game_instance = Game.new
-  game = game_instance.find_by_name(ARGV[1])
-  if ARGV.length < 3
+  if ARGV.length < 2 or options[:friends].nil?
     puts "You must provide the name of a game and at least one friend"
   else
-    players = ARGV[2].split(',').map{|name| name.strip}
+    game_instance = Game.new
+    game = game_instance.find_by_name(ARGV[1])
+    players = options[:friends].map{|name| name.strip}
     player_names = players[0]
     player_names = players[0..-2].join(', ') + " and " + players[-1] if players.length > 1
     players = players.map{|player| Friend.new({name: player}).save}
