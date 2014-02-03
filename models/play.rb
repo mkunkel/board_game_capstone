@@ -7,7 +7,7 @@ class Play
   extend CrudFunctions
 
   def initialize attrs = {}
-    attrs[game_id] = attrs[game_id].to_i unless attrs[game_id].nil?
+    attrs[:game_id] = attrs[:game_id].to_i unless attrs[:game_id].nil?
     attrs = attrs.symbolize_keys
     [:id, :date, :notes, :game_id, :errors].each do |attr|
       self.send("#{attr}=", attrs[attr])
@@ -27,6 +27,7 @@ class Play
     if valid?
       if id.nil?
         create_record
+        self
       end
     end
   end
@@ -37,7 +38,7 @@ class Play
     statement = "INSERT INTO plays(game_id, notes) VALUES(#{game_id}, '#{notes}')"
     Environment.logger.info("Executing CREATE: " + statement)
     db.execute(statement)
-    self.id = db.last_insert_row_id
+    @id = db.last_insert_row_id
     self
   end
 

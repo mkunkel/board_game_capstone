@@ -83,7 +83,6 @@ class Game
   end
 
   def update_record
-
     db = Environment.database_connection
     db.results_as_hash = true
     statement = "UPDATE games SET name='#{name}', min_players='#{min_players}', max_players='#{max_players}', description='#{description}', playing_time='#{playing_time}', in_collection='#{in_collection}' WHERE id='#{id}'"
@@ -99,7 +98,6 @@ class Game
                  description, playing_time, in_collection
                  ) VALUES('#{name}', '#{min_players}',
                           '#{max_players}', '#{description}', '#{playing_time}', 1)"
-
     Environment.logger.info("Executing CREATE: " + statement)
     db.execute(statement)
     self.id = db.last_insert_row_id
