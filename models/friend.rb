@@ -16,6 +16,11 @@ class Friend
     self
   end
 
+  def self.create options = {}
+    friend = self.new(options)
+    friend if friend.save
+  end
+
   def valid?
     @errors = []
     @errors << "No name provided" if @name.nil?

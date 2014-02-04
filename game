@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require_relative 'lib/options'
-# require_relative 'lib/environment'
+require_relative 'lib/environment'
 require_relative 'models/game'
 require_relative 'models/friend'
 require_relative 'models/play'
@@ -77,6 +77,40 @@ when "play"
     else
       puts "Game not recognized"
     end
+  end
+when "suggest"
+  db = Environment.database_connection
+  db.results_as_hash = true
+
+  if options[:friends].nil? or options[:friends].empty?
+    puts "You must provide at least one friend"
+  else
+    players = options[:friends]
+    players = players.map{|player| Friend.create({name: player})}
+    players = players.map{|player| player.id}
+    db.results_as_hash = false
+
+    statement = "SELECT games.name FROM games
+                   WHERE games.min_players <= #{players.length}
+                   AND games.max_players >= #{players.length}
+                   AND games.in_collection = 1 "
+    players.each do |player|
+      statement << "EXCEPT
+                    SELECT games.name FROM games
+                    INNER JOIN plays ON games.id = plays.game_id
+                    INNER JOIN plays_friends ON plays.id = plays_friends.plays_id
+                    WHERE plays_friends.friends_id = #{player} "
+    end
+    Environment.logger.info("Executing: " + statement)
+    games = db.execute(statement)
+    if games.empty?
+      puts "No games match that criteria"
+    else
+      puts games.length > 1 ? "Suggested games:" : "Suggested game:"
+    end
+    games.each{|game| puts game}
+    # all_games = games.flatten.uniq
+    # all_games.keep_if{|game| games.map{|g| g.include?(game)}.uniq == 1}
   end
 else
   puts "unknown"
