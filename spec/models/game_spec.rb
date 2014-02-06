@@ -1,6 +1,5 @@
 require 'spec_helper'
 require_relative '../../lib/environment'
-require_relative '../../models/game'
 
 describe Game do
   before(:each) do

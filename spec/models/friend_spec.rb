@@ -1,6 +1,5 @@
 require 'spec_helper'
 require_relative '../../lib/environment'
-require_relative '../../models/friend'
 
 describe Friend do
   before(:each) do
