@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry'
 require_relative '../../lib/environment'
 require_relative '../../lib/database'
 
@@ -7,10 +6,7 @@ describe "Joining plays with friends" do
   before(:each) do
     Environment.test_prepare
     `./game add 'Shadows Over Camelot' --min 2 --max 7 --time 90 --desc 'Description of game' --environment test`
-    # `./game add 'Pandemic' --min 2 --max 4 --time 60 --desc 'Description of Pandemic' --environment test`
-    # `./game add 'Resistance' --min 5 --max 10 --time 30 --desc 'Description of Resistance' --environment test`
     @db = Environment.connect_to_database
-    # @db.results_as_hash = false
   end
 
   context "With valid input" do
@@ -38,9 +34,7 @@ describe "Joining plays with friends" do
          statement = "INNER JOIN plays_friends ON friends.id = plays_friends.friends_id
                       INNER JOIN plays ON plays_friends.plays_id = plays.id
                       INNER JOIN games ON plays.game_id = games.id"
-                               # WHERE games.name = 'Shadows Over Camelot'"
         friends = Friend.joins(statement).where(games: {name: "Shadows Over Camelot"})
-        # binding.pry
         friends.length.should be 3
       end
     end

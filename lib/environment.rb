@@ -24,30 +24,19 @@ class Environment
     ActiveRecord::Base.establish_connection(connection_details[@@environment])
   end
 
-  # def self.database_connection
-  #   Database.connection(@@environment || "production")
-  # end
-
   def self.logger
-
     @@logger ||= Logger.new("logs/#{@@environment || 'production'}.log")
-
   end
 
   def self.send_query query
     @@environment = "test"
     database = Environment.connect_to_database
-    # database.results_as_hash = false
     database.execute(query)
   end
 
   def self.test_prepare
     @@environment = "test"
     database = Environment.connect_to_database
-    # database.execute("DELETE FROM games")
-    # database.execute("DELETE FROM friends")
-    # database.execute("DELETE FROM plays")
-    # database.execute("DELETE FROM plays_friends")
     Game.destroy_all
     Friend.destroy_all
     Play.destroy_all

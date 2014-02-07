@@ -6,7 +6,7 @@
 
 require 'rake/testtask'
 Rake::TestTask.new(test: "db:test:prepare") do |t|
-  t.pattern = "test/test_*.rb"
+
 end
 
 desc "Run tests"

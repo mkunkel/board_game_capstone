@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry'
 require_relative '../../lib/environment'
 
 describe Friend do

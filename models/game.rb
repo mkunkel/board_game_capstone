@@ -9,16 +9,6 @@ class Game < ActiveRecord::Base
   validates_numericality_of :min_players, :max_players, :playing_time
   before_save :set_in_collection
 
-  # def initialize attrs = {}
-  #   attrs = attrs.symbolize_keys
-  #   attrs[:in_collection] = 1 unless attrs[:in_collection]
-  #   [:id, :name, :min_players, :max_players, :description, :in_collection, :playing_time].each do |attr|
-  #     self.send("#{attr}=", attrs[attr])
-  #   end
-  #   attrs = {}
-  #   super
-  # end
-
   def self.find_by_players number_of_players
     Game.where("min_players <= #{number_of_players} AND max_players >= #{number_of_players}")
   end

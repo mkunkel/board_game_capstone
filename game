@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
-require 'pry'
 require_relative 'lib/options'
 require_relative 'lib/environment'
-# require_relative 'lib/plays_friends'
 
 class BoardGameTracker
   attr_reader :options
@@ -34,16 +32,12 @@ class BoardGameTracker
     end
   end
 
-
   def add_game
-      # binding.pry
     name = ARGV[1]
     g = Game.create(options.merge(name: name))
-    # puts "--------------------------------------------- #{options.merge(name: name)}"
     if g.save
       puts "Added #{g.name}. #{g.min_players}-#{g.max_players} players, #{g.playing_time} minutes\n#{g.description}"
     else
-      # binding.pry
       puts g.errors.full_messages
     end
   end
@@ -63,7 +57,6 @@ class BoardGameTracker
     name = ARGV[1]
     g = Game.find_by(name: name)
     g.update(options)
-    # g = Game.update(name, options)
     if g.errors.nil? or g.errors.empty?
       puts "Updated #{g.name}. #{g.min_players}-#{g.max_players} players, #{g.playing_time} minutes\n#{g.description}"
     else
@@ -98,15 +91,11 @@ class BoardGameTracker
         friend ? friend : Friend.create({name: player})
       }
       players = players.map{|player| player.id}
-      # game = Game.new
       game = Game.find_by(name: ARGV[1])
       unless game.nil?
-        # game = Game.new(game)
         play = Play.create({game_id: game.id})
-        # binding.pry
         unless play.nil?
           players = players.map{|player| PlaysFriend.create(plays_id: play.id, friends_id: player)}
-          # players.map{|player| player.save}
           puts "You played #{game.name} with #{player_names}"
         else
           puts play.errors.full_messages
@@ -119,15 +108,12 @@ class BoardGameTracker
 
   def suggest_games
     db = Environment.connect_to_database
-    # db.results_as_hash = true
-
     if options[:friends].nil? or options[:friends].empty?
       puts "You must provide at least one friend"
     else
       players = options[:friends]
       players = players.map{|player| Friend.find_or_create_by(name: player)}
       players = players.map{|player| player.id}
-      # db.results_as_hash = false
 
       statement = "SELECT games.name FROM games
                      WHERE games.min_players <= #{players.length}
@@ -141,20 +127,16 @@ class BoardGameTracker
                       WHERE plays_friends.friends_id = #{player} "
       end
       Environment.logger.info("Executing: " + statement)
-      games = Game.find_by_sql(statement)
+      games = Game.connection.select_all(statement).rows
       if games.empty?
         puts "No games match that criteria"
       else
         puts games.length > 1 ? "Suggested games:" : "Suggested game:"
-
-        # binding.pry
-        games.each{|game| puts game.name}
+        games.each{|game| puts game[0]}
       end
     end
   end
 end
-# end
-
 
 boardgametracker = BoardGameTracker.new()
 boardgametracker.main()

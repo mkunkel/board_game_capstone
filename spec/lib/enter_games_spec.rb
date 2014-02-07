@@ -1,4 +1,3 @@
-require 'pry'
 require 'spec_helper'
 require_relative '../../lib/environment'
 
@@ -35,7 +34,6 @@ describe "Entering games" do
     `./game add 'Shadows Over Camelot' --min 2 --max 7 --time 45 --desc 'Description of game' --environment test`
     Environment.environment = "test"
     result = Game.select("name, min_players, max_players, playing_time, description").first
-    # binding.pry
     result = [result.name, result.min_players, result.max_players, result.playing_time, result.description]
     expected_output = ["Shadows Over Camelot", 2, 7, 45, "Description of game"]
     result.should == expected_output
