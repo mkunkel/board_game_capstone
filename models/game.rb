@@ -3,7 +3,7 @@ require_relative '../lib/environment'
 require_relative '../lib/hash_patch'
 require_relative '../lib/crud_functions'
 
-class Game
+class Game < ActiveRecord::Base
   attr_accessor :name, :min_players, :max_players, :description, :in_collection, :playing_time
   attr_reader :id, :errors
   extend CrudFunctions
@@ -41,7 +41,7 @@ class Game
 
   def self.find_by_players(number_of_players)
     # number_of_players = number_of_players.to_i
-    db = Environment.database_connection
+    db = Environment.connect_to_database
     db.results_as_hash = true
     statement = "SELECT * FROM games WHERE min_players<=#{number_of_players} AND max_players>=#{number_of_players}"
     Environment.logger.info("Executing: " + statement)
@@ -83,7 +83,7 @@ class Game
   end
 
   def update_record
-    db = Environment.database_connection
+    db = Environment.connect_to_database
     db.results_as_hash = true
     statement = "UPDATE games SET name='#{name}', min_players='#{min_players}', max_players='#{max_players}', description='#{description}', playing_time='#{playing_time}', in_collection='#{in_collection}' WHERE id='#{id}'"
     Environment.logger.info("Executing: " + statement)
@@ -92,7 +92,7 @@ class Game
   end
 
   def create_record
-    db = Environment.database_connection
+    db = Environment.connect_to_database
     db.results_as_hash = true
     statement = "INSERT INTO games(name, min_players, max_players,
                  description, playing_time, in_collection

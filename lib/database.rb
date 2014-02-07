@@ -5,7 +5,6 @@ class Database < SQLite3::Database
   def self.connection environment
     is_new_file = File.exists?("db/boardgametracker_#{environment}.sqlite3")
     @connection ||= Database.new("db/boardgametracker_#{environment}.sqlite3")
-    # create_tables(@connection) if is_new_file
   end
 
   def self.create_tables(database_connection)
@@ -36,7 +35,7 @@ class Database < SQLite3::Database
   end
 
   def self.bootstrap_database
-    database = Environment.database_connection
+    database = Environment.connect_to_database
     create_tables(database)
   end
 end

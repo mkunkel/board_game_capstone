@@ -8,7 +8,7 @@ describe "Joining plays with friends" do
     `./game add 'Shadows Over Camelot' --min 2 --max 7 --time 90 --desc 'Description of game' --environment test`
     # `./game add 'Pandemic' --min 2 --max 4 --time 60 --desc 'Description of Pandemic' --environment test`
     # `./game add 'Resistance' --min 5 --max 10 --time 30 --desc 'Description of Resistance' --environment test`
-    @db = Environment.database_connection
+    @db = Environment.connect_to_database
     @db.results_as_hash = false
   end
 

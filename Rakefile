@@ -18,7 +18,7 @@ end
 task :bootstrap_production_database do
   require 'sqlite3'
   require_relative 'lib/database'
-  database = Database.connection "production"
+  database = Database.connect_to_database
   create_tables(database)
 end
 

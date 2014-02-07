@@ -1,19 +1,39 @@
 #!/usr/bin/env ruby
 require_relative 'lib/options'
 require_relative 'lib/environment'
-require_relative 'models/game'
-require_relative 'models/friend'
-require_relative 'models/play'
 require_relative 'lib/plays_friends'
 
-command = ARGV[0]
+class BoardGameTracker
+  attr_reader :options
 
+  def initialize
+    @options = Options.parse
+    Environment.environment = options[:environment] || "production"
+    @options.delete(:environment)
+    @command = ARGV[0]
+  end
 
-# name = ARGV[1]
-options = Options.parse
-Environment.environment = options[:environment] || "production"
-case command.downcase
-when "add"
+  def main
+    case @command.downcase
+    when "add"
+      add_game
+    when "remove"
+      remove_game
+    when "update"
+      update_game
+    when "list"
+      list_games
+    when "play"
+      play_game
+    when "suggest"
+      suggest_games
+    else
+      puts "unknown"
+    end
+  end
+end
+
+def add_game
   name = ARGV[1]
   g = Game.new(options.merge(name: name))
   if g.save
@@ -21,7 +41,9 @@ when "add"
   else
     puts g.errors
   end
-when "remove"
+end
+
+def remove_game
   name = ARGV[1]
   g = Game.remove(name)
   if g.errors.nil? or g.errors.empty?
@@ -29,7 +51,9 @@ when "remove"
   else
     puts g.errors
   end
-when "update"
+end
+
+def update_game
   name = ARGV[1]
   g = Game.update(name, options)
   if g.errors.nil? or g.errors.empty?
@@ -37,7 +61,9 @@ when "update"
   else
     puts g.errors
   end
-when "list"
+end
+
+def list_games
   number_of_players = ARGV[1].split(' ')[0].to_i
   player_word = number_of_players > 1 ? "players" : "player"
   games = Game.find_by_players(number_of_players)
@@ -49,7 +75,9 @@ when "list"
       puts game.name
     end
   end
-when "play"
+end
+
+def play_game
   if ARGV.length < 2 or options[:friends].nil?
     puts "You must provide the name of a game and at least one friend"
   else
@@ -62,24 +90,23 @@ when "play"
     players = players.map{|player| player.id}
     game = Game.new
     game = game.find_by_name(ARGV[1])
-    unless game.nil?
-      game = Game.new(game)
-      play = Play.new({game_id: game.id})
-      if play.save
-        players = players.map{|player| PlaysFriends.new(play.id, player)}
-        players.map{|player| player.save}
-        puts "You played #{game.name} with #{player_names}"
-
-
-      else
-        puts play.errors
-      end
+  unless game.nil?
+    game = Game.new(game)
+    play = Play.new({game_id: game.id})
+    if play.save
+      players = players.map{|player| PlaysFriends.new(play.id, player)}
+      players.map{|player| player.save}
+      puts "You played #{game.name} with #{player_names}"
     else
-      puts "Game not recognized"
+      puts play.errors
     end
+  else
+    puts "Game not recognized"
   end
-when "suggest"
-  db = Environment.database_connection
+end
+
+def suggest_games
+  db = Environment.connect_to_database
   db.results_as_hash = true
 
   if options[:friends].nil? or options[:friends].empty?
@@ -109,9 +136,8 @@ when "suggest"
       puts games.length > 1 ? "Suggested games:" : "Suggested game:"
     end
     games.each{|game| puts game}
-    # all_games = games.flatten.uniq
-    # all_games.keep_if{|game| games.map{|g| g.include?(game)}.uniq == 1}
   end
-else
-  puts "unknown"
 end
+
+boardgametracker = BoardGameTracker.new()
+boardgametracker.main()

@@ -1,5 +1,6 @@
-require_relative 'environment'
-class PlaysFriends
+require_relative '../lib/environment'
+
+class PlaysFriend < ActiveRecord::Base
   attr_reader :plays_id, :friends_id
 
   def initialize plays_id, friends_id
@@ -8,7 +9,7 @@ class PlaysFriends
   end
 
   def save
-    db = Environment.database_connection
+    db = Environment.connect_to_database
     db.results_as_hash = true
     statement = "INSERT INTO plays_friends(plays_id, friends_id
                  ) VALUES('#{plays_id}', '#{friends_id}')"

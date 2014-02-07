@@ -24,6 +24,15 @@ def get_output command
   `#{command}`.strip
 end
 
-# def test_prepare
-#   Environment.test_prepare
-# end
+def test_prepare
+  database = Environment.connect_to_database
+  # database.execute("DELETE FROM games")
+  # database.execute("DELETE FROM friends")
+  # database.execute("DELETE FROM plays")
+  # database.execute("DELETE FROM plays_friends")
+
+  Game.destroy_all
+  Friend.destroy_all
+  Play.destroy_all
+  PlaysFriend.destroy_all
+end

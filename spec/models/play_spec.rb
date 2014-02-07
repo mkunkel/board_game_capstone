@@ -3,7 +3,7 @@ require_relative '../../lib/environment'
 
 describe Play do
   before(:each) do
-    Environment.test_prepare
+    test_prepare
     @play = Play.new
   end
 

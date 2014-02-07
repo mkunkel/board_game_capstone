@@ -2,7 +2,7 @@ require_relative '../lib/environment'
 require_relative '../lib/string_patch'
 require_relative '../lib/crud_functions'
 
-class Friend
+class Friend < ActiveRecord::Base
   attr_accessor :name
   attr_reader :id, :errors
   extend CrudFunctions
@@ -43,7 +43,7 @@ class Friend
   end
 
   def create_record
-    db = Environment.database_connection
+    db = Environment.connect_to_database
     db.results_as_hash = true
     statement = "INSERT INTO friends(name) VALUES('#{name}')"
     Environment.logger.info("Executing CREATE: " + statement)
