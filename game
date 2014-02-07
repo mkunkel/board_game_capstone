@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+require 'pry'
 require_relative 'lib/options'
 require_relative 'lib/environment'
-require_relative 'lib/plays_friends'
+# require_relative 'lib/plays_friends'
 
 class BoardGameTracker
   attr_reader :options
@@ -9,6 +10,7 @@ class BoardGameTracker
   def initialize
     @options = Options.parse
     Environment.environment = options[:environment] || "production"
+    Environment.connect_to_database
     @options.delete(:environment)
     @command = ARGV[0]
   end
@@ -31,113 +33,128 @@ class BoardGameTracker
       puts "unknown"
     end
   end
-end
 
-def add_game
-  name = ARGV[1]
-  g = Game.new(options.merge(name: name))
-  if g.save
-    puts "Added #{g.name}. #{g.min_players}-#{g.max_players} players, #{g.playing_time} minutes\n#{g.description}"
-  else
-    puts g.errors
-  end
-end
 
-def remove_game
-  name = ARGV[1]
-  g = Game.remove(name)
-  if g.errors.nil? or g.errors.empty?
-    puts "#{name} has been removed from your collection"
-  else
-    puts g.errors
-  end
-end
-
-def update_game
-  name = ARGV[1]
-  g = Game.update(name, options)
-  if g.errors.nil? or g.errors.empty?
-    puts "Updated #{g.name}. #{g.min_players}-#{g.max_players} players, #{g.playing_time} minutes\n#{g.description}"
-  else
-    puts g.errors
-  end
-end
-
-def list_games
-  number_of_players = ARGV[1].split(' ')[0].to_i
-  player_word = number_of_players > 1 ? "players" : "player"
-  games = Game.find_by_players(number_of_players)
-  if games.empty?
-    puts "You do not have any games for #{number_of_players} #{player_word}"
-  else
-    puts "Games for #{number_of_players} #{player_word}:"
-    games.each do |game|
-      puts game.name
-    end
-  end
-end
-
-def play_game
-  if ARGV.length < 2 or options[:friends].nil?
-    puts "You must provide the name of a game and at least one friend"
-  else
-    game_instance = Game.new
-    game = game_instance.find_by_name(ARGV[1])
-    players = options[:friends].map{|name| name.strip}
-    player_names = players[0]
-    player_names = players[0..-2].join(', ') + " and " + players[-1] if players.length > 1
-    players = players.map{|player| Friend.new({name: player}).save}
-    players = players.map{|player| player.id}
-    game = Game.new
-    game = game.find_by_name(ARGV[1])
-  unless game.nil?
-    game = Game.new(game)
-    play = Play.new({game_id: game.id})
-    if play.save
-      players = players.map{|player| PlaysFriends.new(play.id, player)}
-      players.map{|player| player.save}
-      puts "You played #{game.name} with #{player_names}"
+  def add_game
+      # binding.pry
+    name = ARGV[1]
+    g = Game.create(options.merge(name: name))
+    # puts "--------------------------------------------- #{options.merge(name: name)}"
+    if g.save
+      puts "Added #{g.name}. #{g.min_players}-#{g.max_players} players, #{g.playing_time} minutes\n#{g.description}"
     else
-      puts play.errors
+      # binding.pry
+      puts g.errors.full_messages
     end
-  else
-    puts "Game not recognized"
   end
-end
 
-def suggest_games
-  db = Environment.connect_to_database
-  db.results_as_hash = true
-
-  if options[:friends].nil? or options[:friends].empty?
-    puts "You must provide at least one friend"
-  else
-    players = options[:friends]
-    players = players.map{|player| Friend.create({name: player})}
-    players = players.map{|player| player.id}
-    db.results_as_hash = false
-
-    statement = "SELECT games.name FROM games
-                   WHERE games.min_players <= #{players.length}
-                   AND games.max_players >= #{players.length}
-                   AND games.in_collection = 1 "
-    players.each do |player|
-      statement << "EXCEPT
-                    SELECT games.name FROM games
-                    INNER JOIN plays ON games.id = plays.game_id
-                    INNER JOIN plays_friends ON plays.id = plays_friends.plays_id
-                    WHERE plays_friends.friends_id = #{player} "
+  def remove_game
+    name = ARGV[1]
+    g = Game.find_by(name: name)
+    g.remove
+    if g.errors.nil? or g.errors.empty?
+      puts "#{name} has been removed from your collection"
+    else
+      puts g.errors.full_messages
     end
-    Environment.logger.info("Executing: " + statement)
-    games = db.execute(statement)
+  end
+
+  def update_game
+    name = ARGV[1]
+    g = Game.find_by(name: name)
+    g.update(options)
+    # g = Game.update(name, options)
+    if g.errors.nil? or g.errors.empty?
+      puts "Updated #{g.name}. #{g.min_players}-#{g.max_players} players, #{g.playing_time} minutes\n#{g.description}"
+    else
+      puts g.errors.full_messages
+    end
+  end
+
+  def list_games
+    number_of_players = ARGV[1].split(' ')[0].to_i
+    player_word = number_of_players > 1 ? "players" : "player"
+    games = Game.find_by_players(number_of_players)
     if games.empty?
-      puts "No games match that criteria"
+      puts "You do not have any games for #{number_of_players} #{player_word}"
     else
-      puts games.length > 1 ? "Suggested games:" : "Suggested game:"
+      puts "Games for #{number_of_players} #{player_word}:"
+      games.each do |game|
+        puts game.name
+      end
     end
-    games.each{|game| puts game}
+  end
+
+  def play_game
+    if ARGV.length < 2 or options[:friends].nil?
+      puts "You must provide the name of a game and at least one friend"
+    else
+      game = Game.find_by(name: ARGV[1])
+      players = options[:friends].map{|name| name.strip}
+      player_names = players[0]
+      player_names = players[0..-2].join(', ') + " and " + players[-1] if players.length > 1
+      players = players.map{|player|
+        friend = Friend.find_by(name: player)
+        friend ? friend : Friend.create({name: player})
+      }
+      players = players.map{|player| player.id}
+      # game = Game.new
+      game = Game.find_by(name: ARGV[1])
+      unless game.nil?
+        # game = Game.new(game)
+        play = Play.create({game_id: game.id})
+        # binding.pry
+        unless play.nil?
+          players = players.map{|player| PlaysFriend.create(plays_id: play.id, friends_id: player)}
+          # players.map{|player| player.save}
+          puts "You played #{game.name} with #{player_names}"
+        else
+          puts play.errors.full_messages
+        end
+      else
+        puts "Game not recognized"
+      end
+    end
+  end
+
+  def suggest_games
+    db = Environment.connect_to_database
+    # db.results_as_hash = true
+
+    if options[:friends].nil? or options[:friends].empty?
+      puts "You must provide at least one friend"
+    else
+      players = options[:friends]
+      players = players.map{|player| Friend.find_or_create_by(name: player)}
+      players = players.map{|player| player.id}
+      # db.results_as_hash = false
+
+      statement = "SELECT games.name FROM games
+                     WHERE games.min_players <= #{players.length}
+                     AND games.max_players >= #{players.length}
+                     AND games.in_collection = 1 "
+      players.each do |player|
+        statement << "EXCEPT
+                      SELECT games.name FROM games
+                      INNER JOIN plays ON games.id = plays.game_id
+                      INNER JOIN plays_friends ON plays.id = plays_friends.plays_id
+                      WHERE plays_friends.friends_id = #{player} "
+      end
+      Environment.logger.info("Executing: " + statement)
+      games = Game.find_by_sql(statement)
+      if games.empty?
+        puts "No games match that criteria"
+      else
+        puts games.length > 1 ? "Suggested games:" : "Suggested game:"
+
+        # binding.pry
+        games.each{|game| puts game.name}
+      end
+    end
   end
 end
+# end
+
 
 boardgametracker = BoardGameTracker.new()
 boardgametracker.main()

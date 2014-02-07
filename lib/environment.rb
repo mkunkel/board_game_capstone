@@ -37,7 +37,7 @@ class Environment
   def self.send_query query
     @@environment = "test"
     database = Environment.connect_to_database
-    database.results_as_hash = false
+    # database.results_as_hash = false
     database.execute(query)
   end
 

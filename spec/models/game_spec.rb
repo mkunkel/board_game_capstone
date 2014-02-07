@@ -1,3 +1,4 @@
+require 'pry'
 require 'spec_helper'
 require_relative '../../lib/environment'
 
@@ -29,6 +30,8 @@ describe Game do
         `./game add 'Pandemic' --min 2 --max 4 --time 60 --desc 'Description of Pandemic' --environment test`
         `./game add 'Resistance' --min 5 --max 10 --time 30 --desc 'Description of Resistance' --environment test`
         games_for_3 = Game.find_by_players(3)
+        # binding.pry
+        # puts "=============================================== #{games_for_3}"
         games_for_3.length.should be 2
       end
 
@@ -37,13 +40,15 @@ describe Game do
     describe ".update" do
       it "Should change a name" do
         @game.save
-        game = Game.update("Shadows Over Camelot", {:name => 'Pandemic'})
+        game = Game.find_by(name: "Shadows Over Camelot")
+        game.update(name: 'Pandemic')
         game.name.should eq('Pandemic')
       end
 
       it "Should change multiple attributes" do
         @game.save
-        game = Game.update("Shadows Over Camelot", {:name => 'Pandemic', :playing_time => 40})
+        game = Game.find_by(name: "Shadows Over Camelot")
+        game.update(name: 'Pandemic', playing_time: 40)
         attrs = [game.name, game.playing_time]
         attrs.should be == ["Pandemic", 40]
       end

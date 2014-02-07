@@ -30,7 +30,6 @@ def test_prepare
   # database.execute("DELETE FROM friends")
   # database.execute("DELETE FROM plays")
   # database.execute("DELETE FROM plays_friends")
-
   Game.destroy_all
   Friend.destroy_all
   Play.destroy_all

@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2014020614000) do
     t.integer "max_players"
     t.string  "description"
     t.integer "playing_time"
-    t.boolean "in_collection"
+    t.integer "in_collection"
   end
 
   create_table "plays", force: true do |t|

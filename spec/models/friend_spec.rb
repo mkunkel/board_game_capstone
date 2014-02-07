@@ -1,10 +1,11 @@
 require 'spec_helper'
+require 'pry'
 require_relative '../../lib/environment'
 
 describe Friend do
   before(:each) do
     Environment.test_prepare
-    @friend = Friend.new({name: "John Doe"})
+    @friend = Friend.new(name: "John Doe")
   end
 
   context 'class methods' do
@@ -31,7 +32,8 @@ describe Friend do
         @friend.save
         new_friend = Friend.new({name: "John Doe"})
         new_friend.save
-        @friend.id.should be new_friend.id
+        expected_error = ["Name has already been taken"]
+        new_friend.errors.full_messages.should == expected_error
       end
     end
 
